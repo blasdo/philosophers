@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/11 18:12:26 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/04/13 14:55:19 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_fork
 	pthread_mutex_t *mtx;
 	__int8_t 		islocked;
 }				t_fork;
+//push forks in hands, hands is a pointer to philosopher's hands
+void	get_forks(t_forks *forks, t_forks **hands[]);
 // Philo class
 typedef enum e_action
 {
