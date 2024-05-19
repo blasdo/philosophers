@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/19 14:03:45 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/05/19 14:04:28 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/05/19 14:14:48 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "utils.h"
 
-static int	init_blueprint(t_philo *blueprint, int argc, char *argv[])
+int	ft_satoi(char *num, int *integer)
 {
-
-}
-
-int	main(int argc, char *argv[])
-{
-	t_philo	blueprint;
-	t_philo **philos;
-
-	if (!init_blueprint(&blueprint, argc, argv))
-		return (1);
+	return (0);
 }

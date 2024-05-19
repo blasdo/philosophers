@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:00:51 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/04/13 14:52:38 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:26:06 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,7 @@ void	think(t_philo *this)
 	}
 	return ;
 }
-// end of philo class
-void start_philo(t_philo *this)
-{
-	pthread_mutex_lock(this->start_mtx);
-	pthread_mutex_unlock(this->start_mtx);
-	think(this);
-}
+
 t_philo	*new_philo(t_fork *forks, pthread_mutex_t *mtx[], time_t *c_data[])
 {
 	static __u_int	philo_id = 1;
@@ -78,6 +72,15 @@ t_philo	*new_philo(t_fork *forks, pthread_mutex_t *mtx[], time_t *c_data[])
 	philo->eat_time = c_data[EAT_TIME];
 	philo->forks = forks;
 	philo->log_mtx = mtx[MTX_LOG];
+	philo->start_mtx = mtx[MTX_START];
 	pthread_create(philo->thread, NULL, start_philo, philo);
 	return (philo);
+}
+// end of philo class
+
+void start_philo(t_philo *this)
+{
+	pthread_mutex_lock(this->start_mtx);
+	pthread_mutex_unlock(this->start_mtx);
+	think(this);
 }
