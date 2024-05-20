@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/19 14:00:59 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/20 11:06:35 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define PHILOSOPHERS_H
 # include <pthread.h>
 # include <sys/time.h>
+# define ERRMEMO 1
+# define ERRNULL 2
+# define ERRFORM 3
 # define MTX_START 1
 # define MTX_LOG 0
 # define LIMIT_TIME 0
