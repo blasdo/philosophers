@@ -6,17 +6,20 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/20 11:06:35 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:44:16 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
+# include <stdio.h>
+# include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
 # define ERRMEMO 1
 # define ERRNULL 2
 # define ERRFORM 3
+# define ERROVFW 4
 # define MTX_START 1
 # define MTX_LOG 0
 # define LIMIT_TIME 0
@@ -45,11 +48,11 @@ typedef struct s_philo
 {
 	pthread_t			*thread;
 	__uint16_t			philo_id;
-	const __uint16_t	max_eat;
+	__uint16_t			max_eat;
 	time_t				timestamp;
-	const time_t		*limit_time;
-	const time_t		*sleep_time;
-	const time_t		*eat_time;
+	time_t				*limit_time;
+	time_t				*sleep_time;
+	time_t				*eat_time;
 	t_fork				*forks;
 	pthread_mutex_t		*log_mtx;
 	pthread_mutex_t		*start_mtx;
@@ -58,7 +61,7 @@ typedef struct s_philo
 short	p_sleep(t_philo *this, time_t time);
 short	eat(t_philo *this);
 void	think(t_philo *this);
-t_philo	*new_philo(t_fork *forks, pthread_mutex_t *mtx[], time_t *c_data[]);
+t_philo	*new_philo(t_fork *forks, pthread_mutex_t **mtx, time_t c_data[]);
 // End of philo class
 time_t	get_miliseconds(void);
 short	ft_log(t_philo *philo, t_action action);

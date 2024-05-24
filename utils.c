@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:04:28 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/20 11:08:38 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/05/24 14:43:58 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ int	ft_isdigit(char c)
 	return (0);
 }
 
-int	ft_satoi(char *num, int *integer)
+short	ft_satoi(char *num, long *integer)
 {
-	int	i;
+	long	i;
+	short	digit;
 
 	i = 0;
 	if (!num ||!integer)
@@ -32,7 +33,12 @@ int	ft_satoi(char *num, int *integer)
 	{
 		if (!ft_isdigit(num[i]))
 			return (ERRFORM);
+		if (*integer * 10 < integer)
+			return (ERROVFW);
 		*integer *= 10;
+		digit = num[i] - '0';
+		if (*integer + digit < integer)
+			return (ERROVFW);
 		*integer += num[i] - '0';
 		i++;
 	}
