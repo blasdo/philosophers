@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/02 16:21:25 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:29:32 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ int	main(int argc, char *argv[])
 	i = 0;
 	while (i < argc - 1)
 		printf("ARG: %lu\n", argi[i++]);
-	/*
 	i = 0;
 	while (i < argi[0])
 	{
-		philos[i] = new_philo(forks, external, (time_t *) &argi[1]);
+		philos[i] = new_philo(forks, &external, (time_t *) &argi[1]);
 	}
-	return (0);*/
+	return (0);
 }

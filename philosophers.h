@@ -6,12 +6,13 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/02 12:17:55 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:36:42 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
+# include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <pthread.h>
@@ -46,13 +47,14 @@ typedef enum e_action
 
 typedef struct s_philo
 {
+	__uint8_t			isalive;
 	pthread_t			*thread;
 	__uint16_t			philo_id;
 	__uint16_t			max_eat;
 	time_t				timestamp;
-	time_t				*limit_time;
-	time_t				*sleep_time;
-	time_t				*eat_time;
+	time_t				limit_time;
+	time_t				sleep_time;
+	time_t				eat_time;
 	t_fork				*forks;
 	pthread_mutex_t		*log_mtx;
 	pthread_mutex_t		*start_mtx;
@@ -61,7 +63,7 @@ typedef struct s_philo
 short	p_sleep(t_philo *this, time_t time);
 short	eat(t_philo *this);
 void	think(t_philo *this);
-t_philo	*new_philo(t_fork *forks, pthread_mutex_t **mtx, time_t c_data[]);
+t_philo	*new_philo(t_fork *forks, pthread_mutex_t *mtx[], time_t c_data[]);
 // End of philo class
 time_t	get_miliseconds(void);
 short	ft_log(t_philo *philo, t_action action);
