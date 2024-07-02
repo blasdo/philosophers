@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:04:57 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/02 12:46:45 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:16:49 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * 		to by the integer pointer.
  * Returns 0 if there are no errors; otherwise, returns the error code
  */
-short	ft_satoi(char *num, long *integer);
+short	ft_satoul(char *num, unsigned long *integer);
 /*
 * returns the milliseconds that passed since 1/1/1970 at 0:00
 */

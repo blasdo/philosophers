@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:04:28 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/02 12:41:51 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:24:17 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int	ft_isdigit(char c)
 	return (0);
 }
 
-short	ft_satoi(char *num, long *integer)
+short	ft_satoul(char *num, unsigned long *integer)
 {
-	long	i;
-	short	digit;
+	unsigned int	i;
+	unsigned short	digit;
 
 	i = 0;
 	if (!num ||!integer)

@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/02 12:54:35 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:21:25 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	main(int argc, char *argv[])
 		argi[4] = -1;
 	while (i < argc)
 	{
-		if(ft_satoi(argv[i], &argi[i - 1]))
+		if(ft_satoul(argv[i], &argi[i - 1]))
 			return (printf("INVALID FORMAT\n"), ERRFORM);
 		i++;
 	}
 	i = 0;
 	while (i < argc - 1)
-		printf("ARG: %li\n", argi[i++]);
+		printf("ARG: %lu\n", argi[i++]);
 	/*
 	i = 0;
 	while (i < argi[0])
