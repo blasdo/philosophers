@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/05/24 14:59:25 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/02 12:39:07 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 int	main(int argc, char *argv[])
 {
+
+	printf("%li", get_miliseconds());
+	/*
 	int		i;
 	long	argi[5];
 	t_philo **philos;
@@ -39,5 +42,5 @@ int	main(int argc, char *argv[])
 	{
 		philos[i] = new_philo(forks, external, (time_t *) &argi[1]);
 	}
-	return (0);
+	return (0);*/
 }
