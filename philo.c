@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:00:51 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/02 16:36:16 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/03 12:43:54 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ short	eat(t_philo *this)
 {
 	int	miliseconds;
 
+	miliseconds = get_miliseconds();
 	while (lock_forks(this->forks) != 0)
 	{
 		if (miliseconds  - this->timestamp >= this->limit_time)
@@ -47,9 +48,9 @@ void	think(t_philo *this)
 {
 	while (this->isalive)
 	{
-		ft_log(this->philo_id, THINK);
+		ft_log(this, THINK);
 		eat(this);
-		ft_log(this->philo_id, SLEEP);
+		ft_log(this, SLEEP);
 		p_sleep(this, this->sleep_time);
 	}
 	return ;
@@ -71,6 +72,7 @@ t_philo	*new_philo(t_fork *forks, pthread_mutex_t *mtx[], time_t *c_data)
 	philo->forks = forks;
 	philo->log_mtx = mtx[MTX_LOG];
 	philo->start_mtx = mtx[MTX_START];
+	philo->thread = NULL;
 	pthread_create(philo->thread, NULL, start_philo, philo);
 	return (philo);
 }

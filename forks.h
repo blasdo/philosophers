@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   log.c                                              :+:      :+:    :+:   */
+/*   forks.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/24 14:28:15 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/03 12:29:49 by bvelasco         ###   ########.fr       */
+/*   Created: 2024/07/03 12:50:15 by bvelasco          #+#    #+#             */
+/*   Updated: 2024/07/04 17:45:59 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-short	ft_log(t_philo *philo, t_action action)
+t_fork	*create_forks(unsigned long forks)
 {
-	printf("%i %i\n", philo->philo_id, action);
-	return (0);
+	t_fork			*result;
+	unsigned long	i;
+
+	result = malloc(sizeof(t_fork) * forks);
+	if (!result)
+		return (NULL);
+	i = 0;
+	while (i < forks)
+		result[i].islocked = 0;
+	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/02 16:36:42 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/04 18:24:23 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_philo
 
 short	p_sleep(t_philo *this, time_t time);
 short	eat(t_philo *this);
+short	lock_forks(t_fork *forks);
 void	think(t_philo *this);
 t_philo	*new_philo(t_fork *forks, pthread_mutex_t *mtx[], time_t c_data[]);
 // End of philo class

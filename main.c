@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/02 16:29:32 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/03 12:46:40 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 
 int	main(int argc, char *argv[])
 {
-	int		i;
-	long	argi[5];
-	t_philo **philos;
-	t_fork	*forks;
+	int				i;
+	t_philo			**philos;
+	t_fork			*forks;
+	unsigned long	argi[5];
 	pthread_mutex_t	external[3];
 
 	pthread_mutex_init(&external[0], NULL);
@@ -38,9 +38,11 @@ int	main(int argc, char *argv[])
 	while (i < argc - 1)
 		printf("ARG: %lu\n", argi[i++]);
 	i = 0;
-	while (i < argi[0])
+	philos = malloc(sizeof(void *) * argi[0]);
+	forks = malloc(sizeof(void *) * argi[0] * 2);
+	while ((unsigned long) i < argi[0])
 	{
-		philos[i] = new_philo(forks, &external, (time_t *) &argi[1]);
+		philos[i] = new_philo(forks, (pthread_mutex_t **)&external, (time_t *) &argi[1]);
 	}
 	return (0);
 }
