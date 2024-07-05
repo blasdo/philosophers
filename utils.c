@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 14:04:28 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/02 16:24:17 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:20:58 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,18 @@ short	ft_satoul(char *num, unsigned long *integer)
 		i++;
 	}
 	return (0);
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void			*result;
+	const size_t	arg_res = nmemb * size;
+
+	result = malloc(arg_res);
+	if (!result)
+	{
+		return (NULL);
+	}
+	memset(result, 0, arg_res);
+	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/04 18:24:23 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:20:21 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 # define PHILOSOPHERS_H
 # include <stdlib.h>
 # include <stdio.h>
+# include <string.h>
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include "utils.h"
 # define ERRMEMO 1
 # define ERRNULL 2
 # define ERRFORM 3
@@ -35,7 +37,7 @@ typedef struct s_fork
 }				t_fork;
 
 //push forks in hands, hands is a pointer to philosopher's hands
-void	get_forks(t_fork *forks, t_fork **hands[]);
+
 // Philo class
 typedef enum e_action
 {
@@ -56,15 +58,19 @@ typedef struct s_philo
 	time_t				sleep_time;
 	time_t				eat_time;
 	t_fork				*forks;
+	t_fork				**hands;
 	pthread_mutex_t		*log_mtx;
 	pthread_mutex_t		*start_mtx;
 }						t_philo;
 
-short	p_sleep(t_philo *this, time_t time);
-short	eat(t_philo *this);
-short	lock_forks(t_fork *forks);
+// white time or until philo dies.
+void	p_sleep(t_philo *this, time_t time);
+void	eat(t_philo *this);
+void	lock_forks(t_fork *forks);
 void	think(t_philo *this);
+void	*start_philo(void *this);
 t_philo	*new_philo(t_fork *forks, pthread_mutex_t *mtx[], time_t c_data[]);
+void	get_forks(t_philo *this);
 // End of philo class
 time_t	get_miliseconds(void);
 short	ft_log(t_philo *philo, t_action action);

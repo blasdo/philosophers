@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/03 12:46:40 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/05 18:21:25 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ int	main(int argc, char *argv[])
 	{
 		philos[i] = new_philo(forks, (pthread_mutex_t **)&external, (time_t *) &argi[1]);
 	}
+	pthread_join(*(philos[0]->thread), 0);
 	return (0);
 }
