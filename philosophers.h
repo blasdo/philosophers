@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/05 18:20:21 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:30:53 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef enum e_action
 typedef struct s_philo
 {
 	__uint8_t			isalive;
-	pthread_t			*thread;
+	pthread_t			thread;
 	__uint16_t			philo_id;
 	__uint16_t			max_eat;
 	time_t				timestamp;
@@ -58,7 +58,7 @@ typedef struct s_philo
 	time_t				sleep_time;
 	time_t				eat_time;
 	t_fork				*forks;
-	t_fork				**hands;
+	t_fork				*hands[2];
 	pthread_mutex_t		*log_mtx;
 	pthread_mutex_t		*start_mtx;
 }						t_philo;
