@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/08 18:30:53 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:24:02 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@
 typedef struct s_fork
 {
 	pthread_mutex_t	*mtx;
-	__int8_t		islocked;
+	__int8_t		islocked:4;
+	__int8_t		islast:4;
 }				t_fork;
 
 //push forks in hands, hands is a pointer to philosopher's hands

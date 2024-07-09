@@ -6,27 +6,28 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/09 13:58:34 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/09 14:20:21 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include "utils.h"
 
-pthread_mutex_t	*create_basic_mutexs()
+pthread_mutex_t	**create_basic_mutexs()
 {
-	pthread_mutex_t	*result;
+	pthread_mutex_t	**result;
 	__uint8_t		i;
 
-	result = malloc(3 * sizeof(pthread_mutex_t));
+	result = malloc(2 * sizeof(void *));
 	if (!result)
 		return (0);
 	i = 0;
-	while (i < 3)
+	while (i < 2)
 	{
-		pthread_mutex_init(result + i, NULL);
+		result[i] = malloc(1 * sizeof(pthread_mutex_t));
+		pthread_mutex_init(result[i], NULL);
 	}
-	return (0);
+	return (result);
 }
 
 size_t	*parse_args(int argc, char **argv)
@@ -53,23 +54,25 @@ size_t	*parse_args(int argc, char **argv)
 }
 int	main(int argc, char *argv[])
 {
+	size_t			i;
 	t_philo			**philos;
 	t_fork			*forks;
 	size_t			*argi;
-	pthread_mutex_t	external[3];
+	pthread_mutex_t	**external;
 
 	argi = parse_args(argc, argv);
 	if (!argi)
 		return(printf("ERROR PARSING ARGUMENTS\n"), 1);
+	external = create_basic_mutexs();
 	philos = malloc(sizeof(void *) * argi[0]);
 	forks = malloc(sizeof(void *) * argi[0] * 2);
-
-/*
-	while ((unsigned long) i < argi[0])
+	i = 0;
+	pthread_mutex_lock(external[MTX_START]);
+	while (i < argi[0])
 	{
-		philos[i] = new_philo(forks, (pthread_mutex_t **)&external, (time_t *) &argi[1]);
+		philos[i++] = new_philo(forks, external, (time_t *) &argi[1]);
+		pthread_join((philos[i]->thread), NULL);
 	}
-	pthread_join((philos[0]->thread), 0);
+	pthread_mutex_unlock(external[MTX_START]);
 	return (0);
-	*/
 }
