@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/09 17:24:02 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/09 17:59:56 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ typedef struct s_philo
 }						t_philo;
 
 // white time or until philo dies.
-void	p_sleep(t_philo *this, time_t time);
-void	eat(t_philo *this);
-void	lock_forks(t_fork *forks);
-void	think(t_philo *this);
-void	*start_philo(void *this);
-t_philo	*new_philo(t_fork *forks, pthread_mutex_t *mtx[], time_t c_data[]);
-void	get_forks(t_philo *this);
+void		p_sleep(t_philo *this, time_t time);
+void		eat(t_philo *this);
+void		lock_forks(t_fork *forks);
+void		think(t_philo *this);
+void		*start_philo(void *this);
+t_philo		*new_philo(t_fork *forks, pthread_mutex_t *mtx[], time_t c_data[]);
+__uint8_t	get_forks(t_philo *this);
 // End of philo class
 time_t	get_miliseconds(void);
 short	ft_log(t_philo *philo, t_action action);
