@@ -6,7 +6,7 @@ SRCS	=	philo.c \
 			main.c
 OBJS	=	${SRCS:.c=.o}
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-g3 -Wall -Wextra -Werror
 
 all:	$(NAME)
 clean:
