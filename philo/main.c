@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/11 18:06:08 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:08:16 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ void	wait_philos(t_philo **philos, size_t	number_of_philos)
 	{
 		pthread_join(philos[i]->thread, NULL);
 		pthread_detach(philos[i]->thread);
-		if (i < number_of_philos - 1)
-			free(philos[i]->hands[0]);
 		free(philos[i]);
 		i++;
 	}
@@ -103,5 +101,5 @@ int	main(int argc, char *argv[])
 	pthread_mutex_unlock(external[MTX_START]);
 	wait_philos(philos, argi[0]);
 	clear_mem(argi, philos, external);
-	return (0);
+	return (free(forks), 0);
 }
