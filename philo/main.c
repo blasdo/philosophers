@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/11 14:58:10 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:31:00 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,6 @@ ssize_t	*parse_args(int argc, char **argv)
 	}
 	if (argc == 5)
 		argi[4] = -1;
-	i = 0;
-	while (i < argc - 1)
-		printf("ARG: %lu\n", argi[i++]);
 	return (argi);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:49:45 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/11 14:58:57 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:28:00 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ __uint8_t	get_forks(t_philo *this)
 	return (1);
 }
 
-t_fork	*create_forks(unsigned long forks)
+t_fork	*create_forks(int forks)
 {
 	t_fork			*result;
-	unsigned long	i;
+	int				i;
 
 	result = malloc(sizeof(t_fork) * (1 + forks));
 	if (!result)

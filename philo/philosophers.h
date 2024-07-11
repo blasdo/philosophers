@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/11 14:58:20 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/11 15:27:35 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILOSOPHERS_H
 # include <stdlib.h>
 # include <stdio.h>
+# include <limits.h>
 # include <string.h>
 # include <unistd.h>
 # include <pthread.h>
@@ -34,7 +35,7 @@
 typedef struct s_fork
 {
 	pthread_mutex_t	mtx;
-	size_t			owner;
+	int				owner;
 	__int8_t		islast;
 }				t_fork;
 
@@ -51,10 +52,10 @@ typedef enum e_action
 
 typedef struct s_philo
 {
-	size_t				isalive;
+	__uint8_t			isalive;
 	pthread_t			thread;
-	size_t				philo_id;
-	ssize_t				max_eat;
+	int					philo_id;
+	int					max_eat;
 	time_t				timestamp;
 	time_t				init_ts;
 	time_t				limit_time;
@@ -79,7 +80,7 @@ t_philo		*new_philo(t_fork *left_fork, t_fork *right_fork,
 // unlock forks from this->hands
 
 //constructor
-t_fork		*create_forks(unsigned long forks);
+t_fork		*create_forks(int forks);
 
 void		put_down_forks(t_philo *this);
 // lock two forks and put in this->hands, returns 0 if success, 1 if cannot.
