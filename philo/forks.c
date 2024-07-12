@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:49:45 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/12 13:40:47 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:39:39 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ void	put_down_forks(t_philo *this)
 		right_fork->owner = 0;
 	pthread_mutex_unlock(&right_fork->mtx);
 }
+
 __uint8_t	get_forks_pair(t_philo *this)
 {
-	t_fork	*right_fork;
-	t_fork	*left_fork;
+	t_fork		*right_fork;
+	t_fork		*left_fork;
 	__uint8_t	result;
 
 	result = 1;
@@ -51,15 +52,16 @@ __uint8_t	get_forks_pair(t_philo *this)
 	}
 	if (right_fork->owner == this->philo_id
 		&& left_fork->owner == this->philo_id && left_fork != right_fork)
-			result = 0;
+		result = 0;
 	pthread_mutex_unlock(&right_fork->mtx);
 	pthread_mutex_unlock(&left_fork->mtx);
 	return (result);
 }
+
 __uint8_t	get_forks_odd(t_philo *this)
 {
-	t_fork	*right_fork;
-	t_fork	*left_fork;
+	t_fork		*right_fork;
+	t_fork		*left_fork;
 	__uint8_t	result;
 
 	result = 1;
@@ -79,7 +81,7 @@ __uint8_t	get_forks_odd(t_philo *this)
 	}
 	if (right_fork->owner == this->philo_id
 		&& left_fork->owner == this->philo_id && left_fork != right_fork)
-			result = 0;
+		result = 0;
 	pthread_mutex_unlock(&right_fork->mtx);
 	pthread_mutex_unlock(&left_fork->mtx);
 	return (result);

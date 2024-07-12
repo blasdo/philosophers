@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/11 18:08:16 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:40:00 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	clear_mem(ssize_t *argi, t_philo **philos, pthread_mutex_t **mtxs)
 	free(mtxs);
 	free(argi);
 }
+
 int	main(int argc, char *argv[])
 {
 	ssize_t			i;
