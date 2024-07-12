@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/12 13:07:08 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:42:49 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # define ERRNULL 2
 # define ERRFORM 3
 # define ERROVFW 4
-# define MTX_START 1
 # define MTX_LOG 0
 # define LIMIT_TIME 1
 # define EAT_TIME 2
@@ -63,7 +62,6 @@ typedef struct s_philo
 	time_t				eat_time;
 	t_fork				*hands[2];
 	pthread_mutex_t		*log_mtx;
-	pthread_mutex_t		*start_mtx;
 }						t_philo;
 
 // white time or until philo dies.
@@ -73,7 +71,7 @@ void		lock_forks(t_fork *forks);
 void		think(t_philo *this);
 void		*start_philo(void *this);
 t_philo		*new_philo(t_fork *left_fork, t_fork *right_fork,
-				pthread_mutex_t *mtx[], time_t c_data[]);
+				pthread_mutex_t *log_mtx, time_t c_data[]);
 
 //forks
 

@@ -6,30 +6,12 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/12 14:40:00 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:44:55 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include "utils.h"
-
-pthread_mutex_t	**create_basic_mutexs(void)
-{
-	pthread_mutex_t	**result;
-	__uint8_t		i;
-
-	result = malloc(2 * sizeof(void *));
-	if (!result)
-		return (0);
-	i = 0;
-	while (i < 2)
-	{
-		result[i] = malloc(1 * sizeof(pthread_mutex_t));
-		pthread_mutex_init(result[i], NULL);
-		i++;
-	}
-	return (result);
-}
 
 ssize_t	*parse_args(int argc, char **argv)
 {
@@ -65,15 +47,7 @@ void	wait_philos(t_philo **philos, size_t	number_of_philos)
 		free(philos[i]);
 		i++;
 	}
-}
-
-void	clear_mem(ssize_t *argi, t_philo **philos, pthread_mutex_t **mtxs)
-{
 	free(philos);
-	free(mtxs[0]);
-	free(mtxs[1]);
-	free(mtxs);
-	free(argi);
 }
 
 int	main(int argc, char *argv[])
@@ -82,25 +56,22 @@ int	main(int argc, char *argv[])
 	t_philo			**philos;
 	t_fork			*forks;
 	ssize_t			*argi;
-	pthread_mutex_t	**external;
+	pthread_mutex_t	log_mtx;
 
 	argi = parse_args(argc, argv);
 	if (!argi || argi[0] == 0)
 		return (printf("ERROR PARSING ARGUMENTS\n"), 1);
-	external = create_basic_mutexs();
+	pthread_mutex_init(&log_mtx, NULL);
 	philos = malloc(sizeof(void *) * argi[0]);
 	forks = create_forks((argi[0]));
 	i = 0;
-	pthread_mutex_lock(external[MTX_START]);
 	while (i < argi[0] - 1)
 	{
-		philos[i] = new_philo(&forks[i], &forks[i + 1], external,
+		philos[i] = new_philo(&forks[i], &forks[i + 1], &log_mtx,
 				(time_t *)argi);
 		i++;
 	}
-	philos[i] = new_philo(&forks[i], &forks[0], external, (time_t *) argi);
-	pthread_mutex_unlock(external[MTX_START]);
+	philos[i] = new_philo(&forks[i], &forks[0], &log_mtx, (time_t *) argi);
 	wait_philos(philos, argi[0]);
-	clear_mem(argi, philos, external);
-	return (free(forks), 0);
+	return (free(argi), free(forks), 0);
 }

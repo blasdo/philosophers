@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:00:51 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/12 14:39:45 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:02:05 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	eat(t_philo *this)
 	time_t		miliseconds;
 	__uint8_t	fork_res;
 
+	if (this->hands[0] == this->hands[1])
+		return ((void)(ft_log(this, DEAD)));
 	miliseconds = get_miliseconds();
 	fork_res = 1;
 	while (fork_res)
@@ -68,7 +70,7 @@ void	think(t_philo *this)
 }
 
 t_philo	*new_philo(t_fork *left_fork, t_fork *right_fork,
-		pthread_mutex_t **mtx, time_t *c_data)
+		pthread_mutex_t *log_mtx, time_t *c_data)
 {
 	static __u_int	philo_id = 1;
 	t_philo			*philo;
@@ -82,8 +84,7 @@ t_philo	*new_philo(t_fork *left_fork, t_fork *right_fork,
 	philo->sleep_time = c_data[SLEEP_TIME];
 	philo->eat_time = c_data[EAT_TIME];
 	philo->max_eat = c_data[MAX_EAT];
-	philo->log_mtx = mtx[MTX_LOG];
-	philo->start_mtx = mtx[MTX_START];
+	philo->log_mtx = log_mtx;
 	philo->hands[0] = left_fork;
 	philo->hands[1] = right_fork;
 	pthread_create(&philo->thread, NULL, start_philo, philo);
