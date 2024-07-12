@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/11 15:27:35 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/12 13:07:08 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ t_fork		*create_forks(int forks);
 
 void		put_down_forks(t_philo *this);
 // lock two forks and put in this->hands, returns 0 if success, 1 if cannot.
-__uint8_t	get_forks(t_philo *this);
+__uint8_t	get_forks_pair(t_philo *this);
+__uint8_t	get_forks_odd(t_philo *this);
 // End of philo class
 time_t		get_miliseconds(void);
 short		ft_log(t_philo *philo, t_action action);

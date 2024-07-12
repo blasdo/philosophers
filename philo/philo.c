@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:00:51 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/11 14:55:27 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/12 13:30:05 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,21 @@ void	p_sleep(t_philo *this, time_t time)
 
 void	eat(t_philo *this)
 {
-	time_t	miliseconds;
+	time_t		miliseconds;
+	__uint8_t	fork_res;
+
 
 	miliseconds = get_miliseconds();
-	while (get_forks(this))
+	fork_res = 1;
+	while (fork_res)
 	{
 		miliseconds = get_miliseconds();
 		if (miliseconds - this->timestamp >= this->limit_time)
 			return ((void)(ft_log(this, DEAD)));
+		if (this->philo_id % 2)
+			fork_res = get_forks_pair(this);
+		else
+			fork_res = get_forks_odd(this);
 	}
 	this->timestamp = get_miliseconds();
 	ft_log(this, EAT);
@@ -91,11 +98,8 @@ void	*start_philo(void *this)
 	t_philo	*phil;
 
 	phil = this;
-	phil->timestamp = get_miliseconds();
-	pthread_mutex_lock(phil->start_mtx);
-	pthread_mutex_unlock(phil->start_mtx);
 	phil->init_ts = get_miliseconds();
-	phil->timestamp = get_miliseconds();
+	phil->timestamp = phil->init_ts;
 	think(this);
 	return ((void *)0);
 }
