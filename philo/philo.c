@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:00:51 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/12 15:02:05 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/13 15:10:06 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	eat(t_philo *this)
 	if (this->hands[0] == this->hands[1])
 		return ((void)(ft_log(this, DEAD)));
 	miliseconds = get_miliseconds();
-	fork_res = 1;
-	while (fork_res)
+	fork_res = 0;
+	while (fork_res != 2)
 	{
 		miliseconds = get_miliseconds();
 		if (miliseconds - this->timestamp >= this->limit_time)

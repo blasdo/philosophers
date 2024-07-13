@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:28:15 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/12 13:13:16 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/13 13:19:09 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 short	ft_log(t_philo *philo, t_action action)
 {
 	static short	can_print = 1;
-	const char		*s_actions[5] = {"is thinking", "has taken a fork",
-		"is eating", "is sleeping", "died"};
+	const char		*s_actions[6] = {"is thinking", "has taken a fork",
+		"is eating", "is sleeping", "died", "has left a fork"};
 
 	if (!philo->isalive)
 		return (0);
