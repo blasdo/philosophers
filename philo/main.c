@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/16 18:56:48 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:31:01 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	stop_philos(t_philo **philos, int number_of_philos)
 	i = 0;
 	while (i < number_of_philos)
 	{
-		if (!pthread_join(philos[i]->thread, NULL))
-			free(philos[i]);
+		pthread_join(philos[i]->thread, NULL);
+		free(philos[i]);
 		i++;
 	}
 }

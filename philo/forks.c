@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:49:45 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/16 13:46:57 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/16 19:24:23 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	clear_forks(pthread_mutex_t **toclear, int max_forks)
 	if (!toclear)
 		return ;
 	while (i < max_forks)
+	{
+		pthread_mutex_destroy(toclear[i]);
 		free(toclear[i++]);
+	}
 	free(toclear);
 }
 
