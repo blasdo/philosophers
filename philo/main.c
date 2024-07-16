@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/16 13:08:29 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:23:29y bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,26 @@ void	wait_philos(t_philo **philos, size_t number_of_philos)
 			i++;
 		}
 	}
-	free(philos);
+	usleep(100);
+	i = 0;
+	while (i < number_of_philos)
+		pthread_detach(philos[i++]->thread);
 }
+void clean_memory(pthread_mutex_t **forks, t_philo **philos, ssize_t *argi)
+{
+	int i;
 
+	i = 0;
+	while (i < argi[0])
+	{
+		free(forks[i]);
+		free(philos[i]);
+		i++;
+	}
+	free(forks);
+	free(philos);
+	free(argi);
+}
 int	main(int argc, char *argv[])
 {
 	ssize_t			i;
@@ -84,5 +101,6 @@ int	main(int argc, char *argv[])
 	}
 	philos[i] = new_philo(forks[i], forks[0], &log_mtx, (time_t *) argi);
 	wait_philos(philos, argi[0]);
-	return (free(argi), free(forks), 0);
+	clean_memory(forks, philos, argi);
+	return (0);
 }

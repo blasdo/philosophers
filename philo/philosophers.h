@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/16 10:30:29 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:10:42 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void			p_sleep(t_philo *this, time_t time);
 void			eat(t_philo *this);
 void			think(t_philo *this);
 void			*start_philo(void *this);
-t_philo			*new_philo(pthread_mutex_t *left_fork, pthread_mutex_t *right_fork,
+t_philo			*new_philo(pthread_mutex_t *left_fork,
+					pthread_mutex_t *right_fork,
 					pthread_mutex_t *log_mtx, time_t c_data[]);
 
 //forks

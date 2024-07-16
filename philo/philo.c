@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:00:51 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/16 10:40:36 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/16 13:54:35 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,16 @@ void	eat(t_philo *this)
 	if (this->philo_id % 2)
 	{
 		pthread_mutex_lock(this->hands[0]);
+		ft_log(this, FORK);
 		pthread_mutex_lock(this->hands[1]);
+		ft_log(this, FORK);
 	}
 	else
 	{
 		pthread_mutex_lock(this->hands[1]);
-		pthread_mutex_unlock(this->hands[0]);
+		ft_log(this, FORK);
+		pthread_mutex_lock(this->hands[0]);
+		ft_log(this, FORK);
 	}
 	ft_log(this, EAT);
 	this->timestamp = get_miliseconds();
