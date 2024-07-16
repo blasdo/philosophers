@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 12:49:45 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/13 15:10:47 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/16 10:49:40 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,94 +14,43 @@
 
 void	put_down_forks(t_philo *this)
 {
-	t_fork	*right_fork;
-	t_fork	*left_fork;
-
-	right_fork = this->hands[0];
-	left_fork = this->hands[1];
-	pthread_mutex_lock(&left_fork->mtx);
-	if (left_fork->owner == this->philo_id)
-		left_fork->owner = 0;
-	pthread_mutex_unlock(&left_fork->mtx);
-	pthread_mutex_lock(&right_fork->mtx);
-	if (right_fork->owner == this->philo_id)
-		right_fork->owner = 0;
-	pthread_mutex_unlock(&right_fork->mtx);
-	ft_log(this, LEFT);
+	if (this->philo_id % 2)
+	{
+		pthread_mutex_unlock(this->hands[0]);
+		pthread_mutex_unlock(this->hands[1]);
+	}
+	else
+	{
+		pthread_mutex_unlock(this->hands[1]);
+		pthread_mutex_unlock(this->hands[0]);
+	}
 }
-
-__uint8_t	get_forks_pair(t_philo *this)
+void	clear_forks(pthread_mutex_t **toclear, int max_forks)
 {
-	t_fork		*right_fork;
-	t_fork		*left_fork;
-	__uint8_t	result;
+	int i;
 
-	result = 0;
-	right_fork = this->hands[0];
-	left_fork = this->hands[1];
-	pthread_mutex_lock(&left_fork->mtx);
-	if (left_fork->owner == 0)
-	{
-		left_fork->owner = this->philo_id;
-		ft_log(this, FORK);
-		result++;
-	}
-	pthread_mutex_unlock(&left_fork->mtx);
-	pthread_mutex_lock(&right_fork->mtx);
-	if (result == 1 && right_fork->owner == 0)
-	{
-		right_fork->owner = this->philo_id;
-		ft_log(this, FORK);
-		result++;
-	}
-	pthread_mutex_unlock(&right_fork->mtx);
-	return (result);
+	i = 0;
+	if (!toclear)
+		return;
+	while (i < max_forks)
+		free(toclear[i++]);
+	free(toclear);
 }
-
-__uint8_t	get_forks_odd(t_philo *this)
+pthread_mutex_t	**create_forks(int forks)
 {
-	t_fork		*right_fork;
-	t_fork		*left_fork;
-	__uint8_t	result;
+	pthread_mutex_t	**result;
+	int	i;
 
-	result = 0;
-	right_fork = this->hands[0];
-	left_fork = this->hands[1];
-	pthread_mutex_lock(&right_fork->mtx);
-	if (right_fork->owner == 0)
-	{
-		right_fork->owner = this->philo_id;
-		ft_log(this, FORK);
-		result++;
-	}
-	pthread_mutex_unlock(&right_fork->mtx);
-	pthread_mutex_lock(&left_fork->mtx);
-	if (result == 1 && left_fork->owner == 0)
-	{
-		left_fork->owner = this->philo_id;
-		ft_log(this, FORK);
-		result++;
-	}
-	pthread_mutex_unlock(&left_fork->mtx);
-	return (result);
-}
-
-t_fork	*create_forks(int forks)
-{
-	t_fork			*result;
-	int				i;
-
-	result = malloc(sizeof(t_fork) * (1 + forks));
+	result = malloc(sizeof(void *) * forks);
 	if (!result)
 		return (NULL);
 	i = 0;
 	while (i < forks)
 	{
-		pthread_mutex_init(&result[i].mtx, NULL);
-		result[i].owner = 0;
-		result[i].islast = 0;
+		result[i] = malloc(1 * sizeof(pthread_mutex_t));
+		if (!result[i] || pthread_mutex_init(result[i], NULL))
+			clear_forks(result, i + 1);
 		i++;
 	}
-	result[i].islast = 1;
 	return (result);
 }

@@ -6,7 +6,7 @@ SRCS	=	philo.c \
 			main.c
 OBJS	=	${SRCS:.c=.o}
 CC		=	gcc
-CFLAGS	=	-g3 -Wall -Wextra -Werror -fsanitize=thread -D TSAN_OPTIONS=second_deadlock_stack=1
+CFLAGS	=	-g3 -Wall -Wextra -Werror
 
 all:	$(NAME)
 clean:

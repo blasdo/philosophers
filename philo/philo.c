@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:00:51 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/13 15:10:06 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/16 10:40:36 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,18 @@ void	p_sleep(t_philo *this, time_t time)
 
 void	eat(t_philo *this)
 {
-	time_t		miliseconds;
-	__uint8_t	fork_res;
-
-	if (this->hands[0] == this->hands[1])
-		return ((void)(ft_log(this, DEAD)));
-	miliseconds = get_miliseconds();
-	fork_res = 0;
-	while (fork_res != 2)
+	if (this->philo_id % 2)
 	{
-		miliseconds = get_miliseconds();
-		if (miliseconds - this->timestamp >= this->limit_time)
-			return ((void)(ft_log(this, DEAD)));
-		if (this->philo_id % 2)
-			fork_res = get_forks_pair(this);
-		else
-			fork_res = get_forks_odd(this);
+		pthread_mutex_lock(this->hands[0]);
+		pthread_mutex_lock(this->hands[1]);
 	}
-	this->timestamp = get_miliseconds();
+	else
+	{
+		pthread_mutex_lock(this->hands[1]);
+		pthread_mutex_unlock(this->hands[0]);
+	}
 	ft_log(this, EAT);
+	this->timestamp = get_miliseconds();
 	p_sleep(this, this->eat_time);
 	put_down_forks(this);
 }
@@ -65,11 +58,12 @@ void	think(t_philo *this)
 		p_sleep(this, this->sleep_time);
 		if (this->max_eat > 0)
 			(this->max_eat)--;
+		usleep(40);
 	}
 	return ;
 }
 
-t_philo	*new_philo(t_fork *left_fork, t_fork *right_fork,
+t_philo	*new_philo(pthread_mutex_t *left_fork, pthread_mutex_t *right_fork,
 		pthread_mutex_t *log_mtx, time_t *c_data)
 {
 	static __u_int	philo_id = 1;
