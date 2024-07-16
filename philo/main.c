@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/16 13:23:29y bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:56:48 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ ssize_t	*parse_args(int argc, char **argv)
 	return (argi);
 }
 
-void	wait_philos(t_philo **philos, size_t number_of_philos)
+void	inspect_philos(t_philo **philos, size_t number_of_philos)
 {
 	size_t		i;
 	__uint8_t	anyone_died;
@@ -45,36 +45,35 @@ void	wait_philos(t_philo **philos, size_t number_of_philos)
 	while (!anyone_died)
 	{
 		i = 0;
-		while(i < number_of_philos)
+		while (i < number_of_philos)
 		{
-			if (get_miliseconds() - philos[i]->timestamp > philos[i]->limit_time)
+			pthread_mutex_lock(&philos[i]->philo_mtx);
+			if (get_miliseconds()
+				- philos[i]->timestamp > philos[i]->limit_time)
 			{
 				ft_log(philos[i], DEAD);
-				anyone_died = 1;
-				break ;
+				pthread_detach(philos[i]->thread);
+				pthread_mutex_unlock(&philos[i++]->philo_mtx);
+				return ;
 			}
-			i++;
+			if (philos[i]->finished)
+				anyone_died = 1;
+			pthread_mutex_unlock(&philos[i++]->philo_mtx);
 		}
 	}
-	usleep(100);
-	i = 0;
-	while (i < number_of_philos)
-		pthread_detach(philos[i++]->thread);
 }
-void clean_memory(pthread_mutex_t **forks, t_philo **philos, ssize_t *argi)
+
+void	stop_philos(t_philo **philos, int number_of_philos)
 {
 	int i;
 
 	i = 0;
-	while (i < argi[0])
+	while (i < number_of_philos)
 	{
-		free(forks[i]);
-		free(philos[i]);
+		if (!pthread_join(philos[i]->thread, NULL))
+			free(philos[i]);
 		i++;
 	}
-	free(forks);
-	free(philos);
-	free(argi);
 }
 int	main(int argc, char *argv[])
 {
@@ -91,7 +90,7 @@ int	main(int argc, char *argv[])
 	philos = malloc(sizeof(void *) * argi[0]);
 	forks = create_forks((argi[0]));
 	if (!philos || !forks)
-	return (printf("MEMORY ERROR\n"), 1);
+		return (printf("MEMORY ERROR\n"), 1);
 	i = 0;
 	while (i < argi[0] - 1)
 	{
@@ -100,7 +99,7 @@ int	main(int argc, char *argv[])
 		i++;
 	}
 	philos[i] = new_philo(forks[i], forks[0], &log_mtx, (time_t *) argi);
-	wait_philos(philos, argi[0]);
-	clean_memory(forks, philos, argi);
-	return (0);
+	inspect_philos(philos, argi[0]);
+	stop_philos(philos, argi[0]);
+	return (free(philos), clear_forks(forks, argi[0]), free(argi), 0);
 }

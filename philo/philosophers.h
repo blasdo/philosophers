@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/16 13:10:42 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:45:52 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ typedef enum e_action
 
 typedef struct s_philo
 {
-	__uint8_t			isalive;
+	__uint8_t			isalive:4;
+	__uint8_t			finished:4;
 	pthread_t			thread;
 	int					philo_id;
 	int					max_eat;
@@ -55,6 +56,7 @@ typedef struct s_philo
 	time_t				eat_time;
 	pthread_mutex_t		*hands[2];
 	pthread_mutex_t		*log_mtx;
+	pthread_mutex_t		philo_mtx;
 }						t_philo;
 
 // white time or until philo dies.
@@ -67,7 +69,7 @@ t_philo			*new_philo(pthread_mutex_t *left_fork,
 					pthread_mutex_t *log_mtx, time_t c_data[]);
 
 //forks
-
+void	clear_forks(pthread_mutex_t **toclear, int max_forks);
 // unlock forks from this->hands
 
 //create all forks
