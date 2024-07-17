@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:01:02 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/16 19:31:01 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/17 12:42:45 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ ssize_t	*parse_args(int argc, char **argv)
 	while (i < argc)
 	{
 		if (ft_satoul(argv[i], &argi[i - 1]))
-			return (printf("INVALID FORMAT\n"), NULL);
+			return (free(argi), printf("INVALID FORMAT\n"), NULL);
 		i++;
 	}
 	if (argc == 5)
@@ -65,7 +65,7 @@ void	inspect_philos(t_philo **philos, size_t number_of_philos)
 
 void	stop_philos(t_philo **philos, int number_of_philos)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < number_of_philos)
@@ -75,6 +75,7 @@ void	stop_philos(t_philo **philos, int number_of_philos)
 		i++;
 	}
 }
+
 int	main(int argc, char *argv[])
 {
 	ssize_t			i;

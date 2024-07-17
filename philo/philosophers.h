@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/16 18:45:52 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/17 12:43:00 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # define SLEEP_TIME 3
 # define MAX_EAT 4
 
-//push forks in hands, hands is a pointer to philosopher's hands
 // Philo class
 typedef enum e_action
 {
@@ -69,7 +68,7 @@ t_philo			*new_philo(pthread_mutex_t *left_fork,
 					pthread_mutex_t *log_mtx, time_t c_data[]);
 
 //forks
-void	clear_forks(pthread_mutex_t **toclear, int max_forks);
+void			clear_forks(pthread_mutex_t **toclear, int max_forks);
 // unlock forks from this->hands
 
 //create all forks
