@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 16:00:51 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/16 18:22:41 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/17 12:56:40 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ void	eat(t_philo *this)
 		ft_log(this, FORK);
 	}
 	ft_log(this, EAT);
-	pthread_mutex_lock(&this->philo_mtx);
 	this->timestamp = get_miliseconds();
-	pthread_mutex_unlock(&this->philo_mtx);
 	p_sleep(this, this->eat_time);
 	put_down_forks(this);
 }
@@ -49,14 +47,17 @@ void	think(t_philo *this)
 {
 	while (this->isalive && this->max_eat)
 	{
+		pthread_mutex_lock(&this->philo_mtx);
 		ft_log(this, THINK);
 		eat(this);
 		ft_log(this, SLEEP);
 		p_sleep(this, this->sleep_time);
 		if (this->max_eat > 0)
 			(this->max_eat)--;
+		pthread_mutex_unlock(&this->philo_mtx);
 	}
 	pthread_mutex_lock(&this->philo_mtx);
+	ft_log(this, TERMINATE);
 	if (this->isalive)
 		this->finished = 1;
 	pthread_mutex_unlock(&this->philo_mtx);

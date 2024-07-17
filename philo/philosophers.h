@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 14:40:30 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/17 12:43:00 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/17 12:47:45 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ typedef enum e_action
 	EAT,
 	SLEEP,
 	DEAD,
-	LEFT
+	LEFT,
+	TERMINATE
 }			t_action;
 
 typedef struct s_philo

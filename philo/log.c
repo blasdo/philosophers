@@ -6,7 +6,7 @@
 /*   By: bvelasco <bvelasco@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 14:28:15 by bvelasco          #+#    #+#             */
-/*   Updated: 2024/07/17 12:43:07 by bvelasco         ###   ########.fr       */
+/*   Updated: 2024/07/17 12:54:44 by bvelasco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ short	ft_log(t_philo *philo, t_action action)
 	if (!philo->isalive)
 		return (0);
 	pthread_mutex_lock(philo->log_mtx);
+	if (action == TERMINATE)
+		can_print = 0;
 	if (can_print)
 	{
 		printf("%li %i %s\n",
